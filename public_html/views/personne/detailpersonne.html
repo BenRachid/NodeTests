@@ -1,0 +1,11 @@
+<div class="centered panel panel-default" ng-style="myUI.center()">
+    <div class="panel-body">
+        <a ui-sref="liste_personnes"><button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></a>
+        <div>
+            <h3>{{personne.lastname}} {{personne.firstname}}</h3>
+            login : <strong>{{personne.login}}</strong>
+        </div>
+        <div><a ui-sref="liste_personnes.edit({ id : personne.id })"><span class="glyphicon glyphicon-pencil"/></a></div>
+        <div><a ui-sref="liste_personnes.delete({ id : personne.id })"><span class="glyphicon glyphicon-trash"/></a></div>
+    </div>
+</div>

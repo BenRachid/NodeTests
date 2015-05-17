@@ -1,0 +1,22 @@
+<div class="centered panel panel-default" ng-style="myUI.center()">
+    <div class="panel-body">
+        <a ui-sref="liste_personnes"><button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></a>
+        <form class="form" role="form" ng-submit="sauve()">
+            <input type="hidden" ng-model="personne.id"/>
+            <div class="form-group">
+                <label for="nom">Nom</label>
+                <input type="text" class="form-control" name="nom"
+                     ng-model="personne.firstname" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="prenom">Prénom</label>
+                <input type="text" class="form-control" name="prenom"
+                       ng-model="personne.lastname" required>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block"
+                    type="submit">Enregistrer</button>
+        </form>
+        <br/>
+        <div ng-show="success" class="alert alert-success" role="alert">Modifications enregistrées</div>
+    </div>
+</div>

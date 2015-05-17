@@ -1,7 +1,7 @@
 module.exports = function (app, db, isLoggedIn) {
-    app.get("/personnes", function (req, res) {
+    app.get("/api/personnes", function (req, res) {
         var result = [];
-        db.each("SELECT * FROM personne ORDER BY nom,prenom",
+        db.each("SELECT * FROM users ORDER BY login",
                 function (err, row) {
                     result.push(row);
                 },
@@ -11,9 +11,9 @@ module.exports = function (app, db, isLoggedIn) {
         );
     });
 
-    app.get("/personne/:id", function (req, res) {
+    app.get("/api/personne/:id", function (req, res) {
         var personne = undefined;
-        db.each("SELECT * FROM personne WHERE id = ?", [req.params.id],
+        db.each("SELECT * FROM users WHERE id = ?", [req.params.id],
                 function (err, row) {
                     personne = row;
                 },
@@ -27,33 +27,33 @@ module.exports = function (app, db, isLoggedIn) {
         );
     });
 
-    app.post("/personne", isLoggedIn, function (req, res) {
+    app.post("/api/personne", isLoggedIn, function (req, res) {
         var personne = req.body;
-        if (personne.nom === undefined || personne.prenom === undefined) {
+        if (personne.login === undefined) {
             res.status(400).end();
             return;
         }
-        var stmt = db.prepare("INSERT INTO personne(nom,prenom) VALUES(?, ?)");
-        stmt.run(personne.nom, personne.prenom);
+        var stmt = db.prepare("INSERT INTO users(lastname,firstname,birhtdate,login,nickname) VALUES(?, ?, ?, ?, ?)");
+        stmt.run(personne.lastname, personne.firstname, personne.birhtdate, personne.login, personne.nickname);
         stmt.finalize();
         res.status(200).end();
     });
 
-    app.delete("/personne/:id", isLoggedIn, function (req, res) {
-        var stmt = db.prepare("DELETE FROM personne WHERE id=?");
+    app.delete("/api/personne/:id", isLoggedIn, function (req, res) {
+        var stmt = db.prepare("DELETE FROM users WHERE id=?");
         stmt.run(req.params.id);
         stmt.finalize();
         res.status(200).end();
     });
 
-    app.put("/personne/:id", isLoggedIn, function (req, res) {
+    app.put("/api/personne/:id", isLoggedIn, function (req, res) {
         var personne = req.body;
-        if (personne.nom === undefined || personne.prenom === undefined) {
+        if (personne.login === undefined) {
             res.status(400).end();
             return;
         }
-        var stmt = db.prepare("UPDATE personne SET nom=?,prenom=? WHERE id=?");
-        stmt.run(personne.nom, personne.prenom, req.params.id);
+        var stmt = db.prepare("UPDATE users SET lastname=?,firstname=?,birhtdate=?,nickname=? where id = ?");
+        stmt.run(personne.lastname, personne.firstname,personne.birhtdate, personne.nickname, req.params.id);
         stmt.finalize();
         res.status(200).end();
     });

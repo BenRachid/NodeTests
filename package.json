@@ -1,5 +1,5 @@
 {
-    "name": "exemple",
+    "name": "messageApp",
     "dependencies": {
         "sqlite3": "~3.0.2",
         "express": "~4.9.7",

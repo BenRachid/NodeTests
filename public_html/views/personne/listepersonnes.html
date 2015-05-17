@@ -1,0 +1,27 @@
+<div id="listepersonnes">
+    <h3>Liste des personnes</h3>
+ <!--   <a ui-sref=".create"><span class="glyphicon glyphicon-plus"/>Ajouter une personne</a> -->
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>login</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>date de naissance</th>
+                <th>Pseudo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="personne in personnes">
+                <td><a ui-sref=".detail({ id : personne.id })"  ng-bind="personne.login"></a></td>
+                <td>{{personne.lastname}}</td>
+                <td>{{personne.firstname}}</td>
+                <td>{{personne.birhtdate}}</td>
+                <td>{{personne.nickname}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+<div>
+
+<div ui-view></div>

@@ -9,14 +9,11 @@
     <tbody>
         {{#each personnes}}
         <tr>
-            <td><a href="/detailpersonne/{{id}}">{{nom}}</a></td>
-            <td>{{prenom}}</td>
+            <td><a href="/detailpersonne/{{id}}">{{firstname}}</a></td>
+            <td>{{lastname}}</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
 <br/>
-{{#each personnes}}
-{{prenom}} <strong>{{nom}}</strong><br/>
-{{/each}}

@@ -41,3 +41,4 @@ require('./routes.js')(app, passport, isLoggedIn);
 require('./personneroutes.js')(app, db, isLoggedIn);
 
 app.listen(3333);
+console.log('Server running...');

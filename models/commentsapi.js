@@ -1,7 +1,8 @@
+//Return First Level Messages
 module.exports = function (app, db, isLoggedIn) {
-    app.get("/messages", function (req, res) {
+    app.get("api/messages", function (req, res) {
         var result = [];
-        db.each("SELECT * FROM messages ORDER BY  lastUpdate, postdate",
+        db.each("SELECT * FROM messages where parent_message is null ORDER BY  lastUpdate, postdate",
                 function (err, row) {
                     result.push(row);
                 },
@@ -9,9 +10,9 @@ module.exports = function (app, db, isLoggedIn) {
                     res.json(result);
                 }
         );
-    });
-
-    app.get("/message/:id", function (req, res) {
+    });    
+//Return Message
+    app.get("api/message/:id", function (req, res) {
         var message = undefined;
         db.each("SELECT * FROM messages WHERE id = ?", [req.params.id],
                 function (err, row) {
@@ -27,26 +28,47 @@ module.exports = function (app, db, isLoggedIn) {
         );
     });
 
-    app.post("/message", function (req, res, isLoggedIn) {
+    
+//Return Comments
+    app.get("api/message/:id/Comments", function (req, res) {
+        var result = [];
+        db.each("SELECT * FROM messages WHERE parent_message = ?", [req.params.id],
+                function (err, row) {
+                    result.push(row);
+                },
+                function () {
+                    res.json(result);
+                }
+        );
+    });
+    app.post("api/message", function (req, res, isLoggedIn) {
         var message = req.body;
         if (message.content === undefined || message.topic === undefined) {
             res.status(400).end();
             return;
         }
+
+        if(message.parent_message === undefined)
+        {
         var stmt = db.prepare("INSERT INTO messages(content,topic) VALUES(?, ?)");
         stmt.run(message.content, message.topic);
+        }
+        else{
+                    var stmt = db.prepare("INSERT INTO messages(content,topic, parent_message) VALUES(?, ?, ?)");
+        stmt.run(message.content, message.topic, message.parent_message);
+        }
         stmt.finalize();
         res.status(200).end();
     });
 
-    app.delete("/message/:id", function (req, res, isLoggedIn) {
+    app.delete("api/message/:id", function (req, res, isLoggedIn) {
         var stmt = db.prepare("DELETE FROM messages WHERE id=?");
         stmt.run(req.params.id);
         stmt.finalize();
         res.status(200).end();
     });
 
-    app.put("/message/:id", function (req, res, isLoggedIn) {
+    app.put("api/message/:id", function (req, res, isLoggedIn) {
         var message = req.body;
         if (message.topic === undefined || message.content === undefined) {
             res.status(400).end();
