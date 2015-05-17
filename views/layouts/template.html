@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exemples JavaScript/NodeJS/Handlebars</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> 
+        <link rel="stylesheet" href="/index.css">
+        <script src="/index.js"></script>
+        <script src="/angular_app.js"></script>
+    </head>
+    <body ng-app="personneApp">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Exemple</a>
+                </div>
+                 <div>
+                     <ul class="nav navbar-nav">
+                         <li><a href="/listepersonnes">Liste des personnes</a></li>
+                         {{#if user.identifiant}}
+                         <li><a href="/logout">Se déconnecter</a></li>
+                         {{else}}
+                         <li><a href="/login">Se connecter</a></li>
+                         {{/if}}
+                     </ul>
+                 </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Exemple NodeJS/Handlebars</h2>
+                </div>
+                <div class="panel-body">
+                    <div id="contenu">
+                        {{{body}}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
