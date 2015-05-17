@@ -1,4 +1,4 @@
-module.exports = function (app, db) {
+module.exports = function (app, db, isLoggedIn) {
     app.get("/personnes", function (req, res) {
         var result = [];
         db.each("SELECT * FROM personne ORDER BY nom,prenom",
@@ -59,11 +59,3 @@ module.exports = function (app, db) {
     });
 };
 
-function isLoggedIn(req, res, next) {
-    // si utilisateur authentifié, continuer
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    // sinon erreur 'Unauthorized'
-    res.status(401).end();
-}

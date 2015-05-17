@@ -1,4 +1,4 @@
-module.exports = function (app, db) {
+module.exports = function (app, db, isLoggedIn) {
 
     app.get(['/listepersonnes'], function (req, res) {
         var result = [];
@@ -49,11 +49,3 @@ module.exports = function (app, db) {
 
 };
 
-function isLoggedIn(req, res, next) {
-    // si utilisateur authentifié, continuer
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    // sinon afficher formulaire de login
-    res.redirect('/login');
-}

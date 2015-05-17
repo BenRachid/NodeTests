@@ -6,22 +6,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> 
         <link rel="stylesheet" href="/index.css">
-        <script src="/index.js"></script>
-        <script src="/angular_app.js"></script>
+        <script src="/core.js"></script>
     </head>
-    <body ng-app="personneApp">
+    <body>
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">Exemple</a>
+                    <a class="navbar-brand" href="/">Social Messsaging</a>
                 </div>
                  <div>
                      <ul class="nav navbar-nav">
                          <li><a href="/listepersonnes">Liste des personnes</a></li>
                          {{#if user.identifiant}}
-                         <li><a href="/logout">Se déconnecter</a></li>
+                         <li><a href="/logout" class="btn btn-info">Se déconnecter</a></li>
                          {{else}}
-                         <li><a href="/login">Se connecter</a></li>
+                         <li><a href="/auth/twitter"><img src="/sign-in-with-twitter-l.png" width="151" height="24"></a>
                          {{/if}}
                      </ul>
                  </div>
