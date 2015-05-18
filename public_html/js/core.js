@@ -100,9 +100,9 @@ messageApp.config(function ($stateProvider, $urlRouterProvider) {
             controller: 'editMessageController'
         })
         .state('liste_messages.comment', {
-            url: '/create',
+            url: '/comment/{pid}',
             templateUrl: 'views/message/editmessage',
-            controller: 'editMessageController'
+            controller: 'commentMessageController',
         })
         .state('liste_messages.edit', {
             url: '/edit/{id}',
@@ -131,6 +131,15 @@ messageApp.config(function ($stateProvider, $urlRouterProvider) {
 
 messageApp.controller('listeMessagesController', function ($scope, messages) {
     $scope.messages = messages;
+});
+
+
+messageApp.controller('commentMessageController', function ($scope, $stateParams, $state, WebService) {
+    $scope.sauve = function() {
+            WebService.commentMessage($stateParams.pid, $scope.message, function() {
+                $scope.success = true;
+            });
+    };
 });
 
 messageApp.controller('editMessageController', function ($scope, $stateParams, $state, WebService) {
@@ -231,6 +240,13 @@ messageApp.factory('WebService', function ($http) {
         insertPersonne: function(personne, success_handler) {
             $http
                 .post('http://localhost:3333/api/personne', personne)
+                .success(function (data, status, headers, config) {
+                    success_handler();
+                });
+        },
+        commentMessage: function(id,message, success_handler) {
+            $http
+                .post('http://localhost:3333/api/comment/'+ id,message)
                 .success(function (data, status, headers, config) {
                     success_handler();
                 });

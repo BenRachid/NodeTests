@@ -31,7 +31,7 @@ module.exports = function (app, db, isLoggedIn) {
 
     
 //Return Comments
-    app.get("/api/message/:id", function (req, res) {
+    app.get("/api/comments/:id", function (req, res) {
         var result = [];
         db.each("SELECT * FROM messages WHERE parent_message = ?", [req.params.id],
                 function (err, row) {
@@ -42,22 +42,25 @@ module.exports = function (app, db, isLoggedIn) {
                 }
         );
     });
+    app.post("/api/comment/:id", function (req, res, isLoggedIn) {
+        var comment = req.body;
+        if (comment.content === undefined || comment.topic === undefined) {
+            res.status(400).end();
+            return;
+        }
+        var stmt = db.prepare("INSERT INTO messages(content,topic, parent_message) VALUES(?, ?, ?)");
+        stmt.run(comment.content, comment.topic, req.params.id);
+        stmt.finalize();
+        res.status(200).end();
+    });
     app.post("/api/message", function (req, res, isLoggedIn) {
         var message = req.body;
         if (message.content === undefined || message.topic === undefined) {
             res.status(400).end();
             return;
         }
-
-        if(message.parent_message === undefined)
-        {
         var stmt = db.prepare("INSERT INTO messages(content,topic) VALUES(?, ?)");
         stmt.run(message.content, message.topic);
-        }
-        else{
-                    var stmt = db.prepare("INSERT INTO messages(content,topic, parent_message) VALUES(?, ?, ?)");
-        stmt.run(message.content, message.topic, message.parent_message);
-        }
         stmt.finalize();
         res.status(200).end();
     });
