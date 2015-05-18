@@ -99,6 +99,11 @@ messageApp.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'views/message/editmessage',
             controller: 'editMessageController'
         })
+        .state('liste_messages.comment', {
+            url: '/create',
+            templateUrl: 'views/message/editmessage',
+            controller: 'editMessageController'
+        })
         .state('liste_messages.edit', {
             url: '/edit/{id}',
             templateUrl: 'views/message/editmessage',
@@ -128,9 +133,11 @@ messageApp.controller('listeMessagesController', function ($scope, messages) {
     $scope.messages = messages;
 });
 
-messageApp.controller('editMessageController', function ($scope, $stateParams, $state, WebService, message) {
+messageApp.controller('editMessageController', function ($scope, $stateParams, $state, WebService) {
     if ($stateParams.id != null) {
-        $scope.message = message;
+         WebService.appel('message/' + $stateParams.id, function(data) {
+            $scope.message = data;
+        });
     }
     $scope.sauve = function() {
         if ($scope.message.id == null) {

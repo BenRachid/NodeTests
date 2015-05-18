@@ -50,7 +50,7 @@ module.exports = function (app, passport, isLoggedIn) {
         res.sendFile(js + req.originalUrl);
     });
     app.get('/account', isLoggedIn, function(req, res){
-      res.render('account', { user: req.user });
+      res.render(viewname(req), { user: req.user });
     });
 };
 

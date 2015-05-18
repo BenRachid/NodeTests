@@ -3,6 +3,7 @@
         <a ui-sref="liste_messages"><button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></a>
         <form class="form" role="form" ng-submit="sauve()">
             <input type="hidden" ng-model="message.id"/>
+            <input type="hidden" ng-model="message.parent_message"/>
             <div class="form-group">
                 <label for="topic">sujet</label>
                 <input type="text" class="form-control" name="topic"

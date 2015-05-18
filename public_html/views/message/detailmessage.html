@@ -7,6 +7,7 @@
             <br/>
             lastUpdate : {{message.lastUpdate}}
         </div>
+        <a ui-sref="liste_messages.create({ parent_message : message.id })"><span class="glyphicon glyphicon-plus"/>Ajouter un commentaire</a> 
         <div><a ui-sref="liste_messages.edit({ id : message.id })"><span class="glyphicon glyphicon-pencil"/></a></div>
         <div><a ui-sref="liste_messages.delete({ id : message.id })"><span class="glyphicon glyphicon-trash"/></a></div>
     </div>
