@@ -1,23 +1,24 @@
 <div id="listemessages">
     <h3>Liste des messages</h3>
     <a ui-sref=".create"><span class="glyphicon glyphicon-plus"/>Ajouter un message</a> 
-    <table class="table table-hover table-condensed">
-        <thead>
-            <tr>
-                <th>topic</th>
-                <th>content</th>
-                <th>lastUpdate</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="message in messages">
-                <td><a ui-sref=".detail({ id : message.id })"  ng-bind="message.topic"></a></td>
-                <td>{{message.content}}</td>
-                <td>{{message.lastUpdate}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <br/>
+    <div ng-repeat="message in messages" class="container-fluid">
+            <div class="panel panel-info panel-default">
+                <div class="panel-heading">
+                            <h3 class="panel-title"><a ui-sref=".detail({ id : message.id })">{{message.topic}}</a></h3>
+                </div>
+                <div class="panel-body">
+                    <div id="contenu">
+                        <div class="well well-lg">{{message.content}}</div>
+                        <div class="">last update : {{message.lastUpdate}}</div>
+                        <a ui-sref="liste_messages.comment({ pid : message.id })"><span class="glyphicon glyphicon-plus"/>Ajouter un commentaire</a> 
+                    </div>
+                    <div ng-repeat="comment in comments" class="container-fluid">
+                        <div class="well well-lg">{{message.comment}}</div>
+                        <div class="">last update : {{message.lastUpdate}}</div>
+                    </div>
+                </div>
+            </div>
+    </div>
 <div>
 
-<div ui-view></div>
+<div ui-view class="container-fluid"></div>

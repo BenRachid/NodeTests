@@ -10,8 +10,12 @@ module.exports = function (passport) {
     };
 
     // objet utilisateur -> identifiant de session
-    passport.serializeUser(function (user, done) {
-        done(null, user.identifiant);
+    passport.serializeUser(function (user, done/*, getUser*/) {
+        /*var personne = undefined;
+        personne = getUser(user.identifiant);
+        console.log(personne);
+        done(null, personne);*/
+        done(null,user.identifiant);
     });
 
     // identifiant de session -> objet utilisateur

@@ -15,6 +15,7 @@ module.exports = function (app, passport, isLoggedIn) {
 
     app.get(['/welcome'], isLoggedIn, function (req, res) {
         var model = {user: req.user};
+        console.log(req.session.passport.user);
         res.render(viewname(req), model);
     });
 

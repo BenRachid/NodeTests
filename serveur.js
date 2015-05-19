@@ -14,7 +14,7 @@ var db = new sqlite3.Database('msgdatabase.db');
 var app = express();
 
 app.use(cookieParser()); // read cookies (obligatoire pour l'authentification)
-app.use(cookieSession({keys: ['exemplecourssecretkey']}));
+app.use(cookieSession({keys: ['secretkey']}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev')); // toute les requêtes HTTP dans le log du serveur
@@ -34,7 +34,28 @@ var isLoggedIn=function isLoggedIn(req, res, next) {
     // sinon erreur 'Unauthorized'
     res.status(401).end();
 };
-require('./passport.js')(passport);
+/*
+var getUser= function getUser(login)
+{
+    var personne= undefined;
+    db.each("SELECT * FROM users WHERE login = ?", [login],    
+            function (err, row) {
+                    personne = row;
+                },
+                function () {
+                    if (personne === undefined) {
+                        var stmt = db.prepare("INSERT INTO users(login,nickname) VALUES(?, ?)");
+                        stmt.run(login, login);
+                        stmt.finalize();
+                        personne.login= login;
+                        personne.nickname= login;
+                    }  
+                }
+        );
+    return personne;
+};
+*/
+require('./passport.js')(passport/*,getUser*/);
 require('./models/personneapi.js')(app, db, isLoggedIn);
 require('./models/commentsapi.js')(app, db, isLoggedIn);
 require('./routes.js')(app, passport, isLoggedIn);

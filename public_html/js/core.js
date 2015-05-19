@@ -1,3 +1,4 @@
+
 var messageApp = angular.module('messageApp', ['ui.router'])
     .run(function ($rootScope, myUI) {
         $rootScope.myUI = myUI.center();
@@ -9,6 +10,20 @@ messageApp.config(function ($stateProvider, $urlRouterProvider) {
             url: '/home',
             templateUrl: 'views/home'
         })
+       /* .state('welcome', {
+            url: '/welcome',
+            templateUrl: 'views/welcome',
+            controller: 'editPersonneController',
+            resolve: {
+                personne: function($q, $stateParams, WebService) {
+                    var deferred = $q.defer();
+                    WebService.appel('personne/search/'+profile+ , function(data) {
+                        deferred.resolve(data);
+                    });
+                    return deferred.promise;
+                }
+            }
+        })*/
         .state('liste_personnes', {
             url: '/personnes_liste',
             templateUrl: 'views/personne/listepersonnes',
@@ -73,6 +88,7 @@ messageApp.config(function ($stateProvider, $urlRouterProvider) {
                 messages: function($q, WebService) {
                     var deferred = $q.defer();
                     WebService.appel('messages', function (data) {
+                        
                         deferred.resolve(data);
                     });
                     return deferred.promise;
@@ -88,6 +104,13 @@ messageApp.config(function ($stateProvider, $urlRouterProvider) {
                    
                     var deferred = $q.defer();
                     WebService.appel('message/' + $stateParams.id, function(data) {
+                        deferred.resolve(data);
+                    });
+                    return deferred.promise;
+                },
+                comments: function ($q, $stateParams, WebService, message) {
+                     var deferred = $q.defer();
+                    WebService.appel('comments/' + $stateParams.id, function(data) {
                         deferred.resolve(data);
                     });
                     return deferred.promise;
@@ -162,8 +185,9 @@ messageApp.controller('editMessageController', function ($scope, $stateParams, $
 });
 
 
-messageApp.controller('detailMessageController', function ($scope, message) {
+messageApp.controller('detailMessageController', function ($scope, message, comments) {
     $scope.message = message;
+    $scope.comments = comments;
 });
 
 messageApp.controller('listePersonnesController', function ($scope, personnes) {

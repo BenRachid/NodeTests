@@ -4,6 +4,7 @@
         <form class="form" role="form" ng-submit="sauve()">
             <input type="hidden" ng-model="message.id"/>
             <input type="hidden" ng-model="message.parent_message"/>
+            <input type="hidden" ng-model="message.user_id"/>
             <div class="form-group">
                 <label for="topic">sujet</label>
                 <input type="text" class="form-control" name="topic"

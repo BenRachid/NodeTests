@@ -5,7 +5,9 @@
             <h3>{{personne.lastname}} {{personne.firstname}}</h3>
             login : <strong>{{personne.login}}</strong>
         </div>
-        <div><a ui-sref="liste_personnes.edit({ id : personne.id })"><span class="glyphicon glyphicon-pencil"/></a></div>
-        <div><a ui-sref="liste_personnes.delete({ id : personne.id })"><span class="glyphicon glyphicon-trash"/></a></div>
+                <ul class="nav nav-pills">
+                    <li role="presentation"><a ui-sref="liste_personnes.edit({ id : personne.id })"><span class="glyphicon glyphicon-pencil"/></a></li>
+                    <li role="presentation"><a ui-sref="liste_personnes.delete({ id : personne.id })"><span class="glyphicon glyphicon-trash"/>                </a></li>
+                </ul> 
     </div>
 </div>

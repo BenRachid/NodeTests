@@ -7,8 +7,21 @@
             <br/>
             lastUpdate : {{message.lastUpdate}}
         </div>
-        <a ui-sref="liste_messages.comment({ pid : message.id })"><span class="glyphicon glyphicon-plus"/>Ajouter un commentaire</a> 
-        <div><a ui-sref="liste_messages.edit({ id : message.id })"><span class="glyphicon glyphicon-pencil"/></a></div>
-        <div><a ui-sref="liste_messages.delete({ id : message.id })"><span class="glyphicon glyphicon-trash"/></a></div>
+        
+              <ul class="nav nav-pills">
+                  <li role="presentation"><a ui-sref="liste_messages.comment({ pid : message.id })"><span class="glyphicon glyphicon-plus"/>Ajouter un commentaire</a> </li>  
+                  <li role="presentation"><a ui-sref="liste_messages.edit({ id : message.id })"><span class="glyphicon glyphicon-pencil"/></a></li>
+                    <li role="presentation"><a ui-sref="liste_messages.delete({ id : message.id })"><span class="glyphicon glyphicon-trash"/>                </a></li>
+                </ul>  
     </div>
+    <ul class="list-group">
+        <li ng-repeat="comment in comments"class="list-group-item">
+                        <div class="well">{{comment.content}}<br/>last comment update : {{message.lastUpdate}}<br/>
+
+                <ul class="nav nav-pills">
+                    <li role="presentation"><a ui-sref="liste_messages.edit({ id : comment.id })"><span class="glyphicon glyphicon-pencil"/></a></li>
+                    <li role="presentation"><a ui-sref="liste_messages.delete({ id : comment.id })"><span class="glyphicon glyphicon-trash"/>                </a></li>
+                </ul>                          
+
+        </li>
 </div>

@@ -1,45 +1,25 @@
 <p>Bienvenue a Social Messaging, votre login est : {{user.identifiant}}</p><br/>
-
-<!--Creation de l'utilisateur-->
-<p>Merci de bien vouloir remplir vos informations personnels </p>
-
+<div class="centered panel panel-default" ng-style="myUI">
+    <div class="panel-body">
+<h3>Merci de bien vouloir remplir vos informations personnels </h3>
 <form id ="form" class="form" role="form">
 <div class="form-group">
-        <input type="hidden" name="login" value="{{user.identifiant}}"/>
+        <input type="hidden" name="login" value="{{personne.login}}"/>
         <label for="lastname">Nom</label>
         <input type="text" class="form-control" id="lastname" name="lastname"
-               value="{{lastname}}" required autofocus>
+               value="{{personne.lastname}}" required autofocus>
         <label for="firstname">Prenom</label>
         <input type="text" class="form-control" id="firstname" name="firstname"
-               value="{{firstname}}" required>
+               value="{{personne.firstname}}" required>
         <label for="birthdate">Date de naissance</label>
         <input type="date" class="form-control" id="birthdate" name="birthdate"
-               value="{{birhtdate}}" required>
+               value="{{personne.birhtdate}}" required>
         <label for="nickname">Pseudo</label>
-        <input type="text" class="form-control" id="nickname" name="nickname" value="{{nickname}}">        
+        <input type="text" class="form-control" id="nickname" name="nickname" value="{{personne.nickname}}">        
     </div>
     <button class="btn btn-lg btn-primary btn-block" 
             type="submit">Enregistrer</button>
-</form>
-
+</form>       
+    </div>
+</div>
 <br/>
-
-
-<script>
-$(document).ready(function() {
-  $("#form_selector").submit(function() {
-    $.ajax({
-     type: "POST",
-      url: "/api/personne",
-      data: $(this).serialize(),
-      success: function() {
-        $.ajax({
-            type: "GET",
-            url : "/",
-        })
-      }
-    })
-
-  })
-})
-</script>
